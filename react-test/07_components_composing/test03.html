@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/prop-types.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/babel">
+    class App extends React.Component{
+        constructor(props){
+            super(props);
+            //this经常忘记写
+            this.state={
+                todos:['吃饭','睡觉','敲代码']
+            }
+        }
+        render(){
+            const todos=this.state.todos.map((item,index)=>{
+                return <li key={index}>{item}</li>
+            })
+            return(
+                    <div>
+                        <Add addTodo={this.addTodo} size={this.state.todos.length}/>
+                        <List todos={todos}/>
+                    </div>
+            )
+        }
+
+        addTodo=(todo)=>{
+            let todos1=this.state.todos;
+            todos1.unshift(todo);
+            //setState的使用方式
+            this.setState({
+                todos:todos1
+            })
+        }
+    }
+
+    class Add extends React.Component{
+        render(){
+            return(
+                    <div>
+                        <input ref="content"/>
+                        <button onClick={this.add}>Add #{this.props.size}</button>
+                    </div>
+            )
+        }
+
+        add=()=>{
+            const value=this.refs.content.value.trim();
+            this.props.addTodo(value);
+            this.refs.content.value='';
+        }
+    }
+    Add.propTypes={
+        addTodo:PropTypes.func.isRequired,
+        size:PropTypes.number.isRequired
+    }
+
+
+
+    class List extends React.Component{
+        render(){
+            return(
+                    <ul>
+                        {this.props.todos}
+                    </ul>
+            )
+        }
+    }
+    List.propTypes={
+        todos:PropTypes.array.isRequired
+    }
+
+    
+    ReactDOM.render(<App/>,document.getElementById('example'))
+</script>
+</body>
+</html>

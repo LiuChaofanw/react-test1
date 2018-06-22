@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            height: 100px;
+            width: 100px;
+            background-color: pink;
+        }
+        #div2{
+            height: 200px;
+            width: 200px;
+            background-color: skyblue;
+        }
+        #div3{
+            height:100px;
+            width: 100px;
+            background-color: khaki;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">1</div>
+<div id="div2">2
+<div id="div3">3</div>
+</div>
+<script>
+    let div1=document.getElementById('div1')
+    let div2=document.getElementById('div2')
+    let div3=document.getElementById('div3')
+/*    div2.replaceChild(div1,div3)*/
+    let newdiv1=div1.cloneNode();
+    div2.replaceChild(newdiv1,div3)
+    let arr=document.getElementsByTagName('div')
+    let array=[1,2,3]
+    console.log(arr)
+    console.log(array);
+    arr=Array.prototype.slice.call(arr)
+    console.log(arr)
+</script>
+</body>
+</html>
